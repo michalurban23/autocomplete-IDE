@@ -2,7 +2,6 @@ function createEditorContainer() {
     return "<div>dupa</div>";
 }
 
-
 function loadKeywords() {
 
     var keywords = [];
@@ -20,3 +19,4 @@ $("document").ready(function() {
     $("#app").append(createEditorContainer);
     loadKeywords()
 });
+
