@@ -1,4 +1,11 @@
+import {Dictionary} from "./Dictionary.js";
+
 export class Controller {
+
+    constructor() {
+        this.dictionary = new Dictionary();
+        this.keywords = this.dictionary.loadKeywords();
+    }
 
     readText(dict) {
 
@@ -12,16 +19,22 @@ export class Controller {
 
     giveSuggestions(dict, input) {
 
-        let suggestions = [];
+        let startsWith = [];
+        let includes = [];
 
-        let splittedInput = input.replace(/\n/g, " ").split(" ");
-        let lastInput = splittedInput[splittedInput.length - 1];
+        let inputArray = input.replace(/\n/g, " ").split(" ");
+        let lastInput = inputArray[inputArray.length - 1];
 
-        for (let keyword of dict) {
-            if (lastInput.length >= 2 && keyword.includes(lastInput)) {
-                suggestions.push(keyword);
+        for (let keyword of this.keywords) {
+            if (lastInput.length >= 2 && keyword.includes(lastInput) && keyword.startsWith(lastInput)) {
+                startsWith.push(keyword);
+            }
+            else if (lastInput.length >= 2 && keyword.includes(lastInput) && !keyword.startsWith(lastInput)) {
+                includes.push(keyword)
             }
         }
+        let suggestions = startsWith.concat(includes);
+
         if (suggestions.length > 0) {
             this.createSuggestionsDiv(suggestions);
             console.log(suggestions);
@@ -48,5 +61,4 @@ export class Controller {
     closeOtherLists() {
         $(".suggestions").hide();
     }
-
 }

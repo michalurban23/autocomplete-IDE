@@ -1,3 +1,9 @@
 class
-var
+boolean
+enum
 function
+float
+let
+long
+static
+var
