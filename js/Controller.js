@@ -1,25 +1,38 @@
+import {Dictionary} from "./Dictionary.js";
+
 export class Controller {
 
-    readText(dict) {
+    constructor() {
+        this.dictionary = new Dictionary();
+        this.keywords = this.dictionary.loadKeywords();
+    }
+
+    readText() {
+        var self = this;
         $("#code").on("input", function () {
             console.log($(this)[0].value);
-            Controller.giveSuggestions(dict, $(this)[0].value);
+            self.giveSuggestions($(this)[0].value);
         });
     }
 
-    static giveSuggestions(dict, input) {
+    giveSuggestions(input) {
 
-        let suggestions = [];
+        let startsWith = [];
+        let includes = [];
 
-        let splittedInput = input.replace(/\n/g, " ").split(" ");
-        let lastInput = splittedInput[splittedInput.length - 1];
+        let inputArray = input.replace(/\n/g, " ").split(" ");
+        let lastInput = inputArray[inputArray.length - 1];
 
-        for (let keyword of dict) {
+        for (let keyword of this.keywords) {
             if (lastInput.length >= 2 && keyword.includes(lastInput) && keyword.startsWith(lastInput)) {
-                suggestions.push(keyword);
+                startsWith.push(keyword);
+            }
+            else if (lastInput.length >= 2 && keyword.includes(lastInput) && !keyword.startsWith(lastInput)) {
+                includes.push(keyword)
             }
         }
 
+        let suggestions = startsWith + includes;
         console.log(suggestions.toString())
     }
 }
