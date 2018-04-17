@@ -1,12 +1,15 @@
-import {readText} from "./Controller.js";
-import {loadKeywords} from "./Dictionary.js";
+import {Controller} from "./Controller.js";
+import {Dictionary} from "./Dictionary.js";
 
-function addListeners() {
-    readText();
+function addListeners(controller) {
+    controller.readText();
 }
 
 $("document").ready(function() {
-    const dict = loadKeywords();
-    addListeners();
+    let controller = new Controller();
+    let dictionary = new Dictionary();
+
+    const dict = dictionary.loadKeywords();
+    addListeners(controller);
 });
 

@@ -2,6 +2,10 @@ body {
     background-color: blanchedalmond;
 }
 
+h1 {
+    text-align: center;
+}
+
 .editor {
     background-color: beige;
 }
@@ -16,7 +20,7 @@ body {
     width: 49%;
     margin: auto;
     float: left;
-    border: 1pt solid black;
+    /*border: 1pt solid black;*/
 }
 
 .console {
@@ -29,6 +33,6 @@ body {
 
 #code {
     resize: none;
-    width: 90%;
-    min-height: 400px;
+    width: 100%;
+    min-height: 500px;
 }
