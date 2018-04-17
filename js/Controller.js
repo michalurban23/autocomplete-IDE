@@ -1,17 +1,21 @@
 export class Controller {
-    readText() {
+
+    readText(dict) {
         $("#code").on("input", function () {
             console.log($(this)[0].value);
+            Controller.giveSuggestions(dict, $(this)[0].value);
         });
     }
 
-    keywordController(keywords) {
+    static giveSuggestions(dict, input) {
 
         let suggestions = [];
-        let input = this.readText();
 
-        for (let keyword of keywords) {
-            if (keyword.contains(input)) {
+        let splittedInput = input.replace(/\n/g, " ").split(" ");
+        let lastInput = splittedInput[splittedInput.length - 1];
+
+        for (let keyword of dict) {
+            if (lastInput.length >= 2 && keyword.includes(lastInput) && keyword.startsWith(lastInput)) {
                 suggestions.push(keyword);
             }
         }
