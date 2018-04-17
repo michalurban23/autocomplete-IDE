@@ -1,21 +1,8 @@
-function readText() {
-    $("#code").keyup(function () {
-        console.log($(this)[0].value);
-        return $(this)[0].value;
-    });
-}
+import {readText} from "./Controller.js";
+import {loadKeywords} from "./Dictionary.js";
 
-function loadKeywords() {
-    let keywords = [];
-
-    $.get("assets/keywords.txt", function (data) {
-        let lines = data.split('\n');
-        for (let line of lines) {
-            keywords.push(line);
-        }
-    });
-
-    return keywords;
+function addListeners() {
+    readText();
 }
 
 function keywordController(keywords) {
@@ -35,5 +22,6 @@ function keywordController(keywords) {
 
 
 $("document").ready(function() {
-    keywordController(loadKeywords());
+    const dict = loadKeywords();
+    addListeners();
 });
