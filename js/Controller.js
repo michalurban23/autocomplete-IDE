@@ -1,30 +1,52 @@
 export class Controller {
 
-    readText() {
+    readText(dict) {
+
+        let self = this;
+
         $("#code").on("input", function () {
-            console.log($(this)[0].value);
+            console.log($(this)[0]);
+            self.giveSuggestions(dict, $(this)[0].value);
         });
     }
 
-    keywordController(keywords) {
+    giveSuggestions(dict, input) {
 
         let suggestions = [];
-        let input = this.readText();
 
-        for (let keyword of keywords) {
-            if (keyword.contains(input)) {
+        let splittedInput = input.replace(/\n/g, " ").split(" ");
+        let lastInput = splittedInput[splittedInput.length - 1];
+
+        for (let keyword of dict) {
+            if (lastInput.length >= 2 && keyword.includes(lastInput)) {
                 suggestions.push(keyword);
             }
         }
-
-        console.log(suggestions.toString())
+        if (suggestions.length > 0) {
+            this.createSuggestionsDiv(suggestions);
+            console.log(suggestions);
+        } else {
+            this.closeOtherLists();
+        }
     }
 
     createSuggestionsDiv(suggestions) {
 
-        var div = document.createElement("div");
+        let div = document.createElement("div");
         div.setAttribute("class", "suggestions");
+        let offset = this.calculateOffset();
+        div.setAttribute("style", "top: " + offset[0] + "px; left: " + offset[1] + "px;");
+        div.innerText = suggestions;
+        this.closeOtherLists();
         $(".autocomplete").append(div);
-
     }
+
+    calculateOffset() {
+        return [100, 100];
+    }
+
+    closeOtherLists() {
+        $(".suggestions").hide();
+    }
+
 }

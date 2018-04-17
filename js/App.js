@@ -1,8 +1,8 @@
 import {Controller} from "./Controller.js";
 import {Dictionary} from "./Dictionary.js";
 
-function addListeners(controller) {
-    controller.readText();
+function addListeners(controller, dict) {
+    controller.readText(dict);
 }
 
 $("document").ready(function() {
@@ -10,5 +10,5 @@ $("document").ready(function() {
     let dictionary = new Dictionary();
 
     const dict = dictionary.loadKeywords();
-    addListeners(controller);
+    addListeners(controller, dict);
 });
