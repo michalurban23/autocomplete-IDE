@@ -1,7 +1,9 @@
-function createEditorContainer() {
-    return "<div>dupa</div>";
+function readText() {
+    $("#code").keyup(function () {
+        console.log($(this)[0].value);
+    });
 }
 
-$("document").ready(function() {
-    $("#app").append(createEditorContainer);
+$("document").ready(function () {
+    readText();
 });
