@@ -5,3 +5,30 @@ body {
 .editor {
     background-color: beige;
 }
+
+.app {
+    width: 90%;
+    overflow: hidden;
+}
+
+.editor {
+    min-height: 500px;
+    width: 49%;
+    margin: auto;
+    float: left;
+    border: 1pt solid black;
+}
+
+.console {
+    min-height: 500px;
+    width: 49%;
+    background-color: black;
+    float: right;
+    border: 1pt solid black;
+}
+
+#code {
+    resize: none;
+    width: 90%;
+    min-height: 400px;
+}

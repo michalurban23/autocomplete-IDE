@@ -1,22 +1,24 @@
-function createEditorContainer() {
-    return "<div>dupa</div>";
+function readText() {
+    $("#code").keyup(function () {
+        console.log($(this)[0].value);
+    });
 }
 
 function loadKeywords() {
-
     var keywords = [];
 
     $.get("assets/keywords.txt", function (data) {
         var lines = data.split('\n');
-        $.forEach(lines, function (line) {
-            keywords.push(line)
-            console.log(line)
-        })
+        for (let line of lines) {
+            keywords.push(line);
+        }
     })
+
+    return keywords;
 }
 
 $("document").ready(function() {
-    $("#app").append(createEditorContainer);
     loadKeywords()
+    readText();
 });
 
