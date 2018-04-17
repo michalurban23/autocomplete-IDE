@@ -1,4 +1,5 @@
 export class Controller {
+
     readText() {
         $("#code").on("input", function () {
             console.log($(this)[0].value);
@@ -17,5 +18,13 @@ export class Controller {
         }
 
         console.log(suggestions.toString())
+    }
+
+    createSuggestionsDiv(suggestions) {
+
+        var div = document.createElement("div");
+        div.setAttribute("class", "suggestions");
+        $(".autocomplete").append(div);
+
     }
 }
