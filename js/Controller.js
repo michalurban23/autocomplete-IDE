@@ -11,7 +11,7 @@ export class Controller {
 
         let self = this;
 
-        $("#code").keydown(function(e) {
+        $("textarea").keydown(function(e) {
             if(e.keyCode === 9) {
 
                 var start = this.selectionStart;
@@ -28,6 +28,21 @@ export class Controller {
                 this.selectionStart = this.selectionEnd = start + 1;
 
                 e.preventDefault();
+            }
+        });
+
+        let isCtrl = false;
+        $(document).keyup(function (e) {
+            if(e.which == 17) isCtrl=false;
+        }).keydown(function (e) {
+            if(e.which == 17) isCtrl=true;
+            if(e.which == 13 && isCtrl == true) {
+                alert('skrót dziabie');
+                // let form = document.getElementsByTagName("input")[0];
+                // form.submit();
+                let console = document.getElementsByClassName("testheader")[0];
+                console.innerHTML = "DEEZ NUTZ";
+                return false;
             }
         });
 
