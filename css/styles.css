@@ -50,16 +50,13 @@ h1 {
     width: auto;
 }
 
-#dummy-div, .dummy-div {
-    border: 1pt solid black;
-    font-size: 14px;
-    font-family: Monospaced, serif;
-    resize: none;
-    width: 100px;
-    min-height: 100px;
-}
-
 .highlight {
     font-weight: bold;
     color: red;
+}
+
+textarea,
+pre {
+    -moz-tab-size : 4;
+    tab-size : 4;
 }

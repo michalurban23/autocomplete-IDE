@@ -12,6 +12,26 @@ export class Controller {
 
         let self = this;
 
+        $("#code").keydown(function(e) {
+            if(e.keyCode === 9) {
+
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                var $this = $(this);
+                var value = $this.val();
+
+
+                $this.val(value.substring(0, start)
+                    + "\t"
+                    + value.substring(end));
+
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                e.preventDefault();
+            }
+        });
+
         $("#code").on("input", function () {
             self.giveSuggestions(dict, $(this)[0].value);
         });
@@ -24,7 +44,7 @@ export class Controller {
                 console.log($(".suggestions")[0]);
             } else if (e.keyCode === 40) {  // DOWN ARROW
                 console.log("dupa");
-            } else if (e.keyCode === 13) {  // ENTER
+            } else if (e.keyCode === 13 && $(".suggestions")[0] !== undefined) {  // ENTER
                 e.preventDefault();
                 console.log("123");
             }
