@@ -46,3 +46,9 @@ h1 {
     height: 20px;
     width: auto;
 }
+
+textarea,
+pre {
+    -moz-tab-size : 4;
+    tab-size : 4;
+}
