@@ -2,12 +2,12 @@ body {
     background-color: blanchedalmond;
 }
 
-h1 {
-    text-align: center;
+#dummy {
+    color: blanchedalmond;
 }
 
-.editor {
-    background-color: beige;
+h1 {
+    text-align: center;
 }
 
 .app {
@@ -16,7 +16,7 @@ h1 {
 }
 
 .editor {
-    /*position: relative;*/
+    background-color: beige;
     min-height: 500px;
     width: 50%;
     margin: auto;
@@ -32,17 +32,34 @@ h1 {
 }
 
 #code {
-    /*position: relative;*/
+    font-size: 14px;
+    font-family: Monospaced, monospace;
     resize: none;
     width: 100%;
     min-height: 500px;
 }
 
 .suggestions {
+    font-size: 14px;
+    font-family: Monospaced, monospace;
     position: absolute;
     z-index: 99;
     border: 1pt solid black;
     background-color: lightblue;
-    height: 20px;
+    height: auto;
     width: auto;
+}
+
+#dummy-div, .dummy-div {
+    border: 1pt solid black;
+    font-size: 14px;
+    font-family: Monospaced, serif;
+    resize: none;
+    width: 100px;
+    min-height: 100px;
+}
+
+.highlight {
+    font-weight: bold;
+    color: red;
 }
