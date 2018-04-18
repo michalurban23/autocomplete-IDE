@@ -10,6 +10,7 @@ export class Controller {
     readText(dict) {
 
         let self = this;
+        this.dictionary.clearCustomKeywords();
 
         $("#code").on("input", function () {
             console.log($(this)[0]);
@@ -22,7 +23,7 @@ export class Controller {
         let startsWith = [];
         let includes = [];
 
-        let inputArray = input.replace(/\n/g, " ").split(" ");
+        let inputArray = this.filterString(input);
         let lastInput = inputArray[inputArray.length - 1];
 
         for (let keyword of this.keywords) {
@@ -60,5 +61,20 @@ export class Controller {
 
     closeOtherLists() {
         $(".suggestions").hide();
+    }
+
+    filterString(string) {
+        string = string.replace(/\n/g, " ");
+        string = string.replace('[', " ").replace(']', " ");
+        string = string.replace('(', " ").replace(')', " ");
+        string = string.replace('{', " ").replace('}', " ");
+        string = string.replace('.', " ").replace(',', " ").replace(':', " ").replace('+', " ");
+        string = string.replace('-', " ").replace('*', " ").replace('/', " ").replace('%', " ");
+        string = string.replace('$', " ").replace('#', " ").replace('!', " ").replace('?', " ");
+        string = string.replace('^', " ").replace('\"', " ").replace('\'', " ").replace('&', " ");
+        string = string.replace('@', " ").replace('=', " ").replace('_', " ").replace(';', " ");
+        string = string.replace('>', " ").replace('<', " ");
+
+        return string.split(" ");
     }
 }
