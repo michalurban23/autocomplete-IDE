@@ -96,6 +96,7 @@ export class Controller {
     createSuggestionsDiv(input, suggestions) {
 
         input = $.trim(input);
+        input = this.filterString(input);
 
         this.closeOtherLists();
         let div = document.createElement("div");
