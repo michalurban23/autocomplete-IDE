@@ -1,9 +1,9 @@
 body {
-    background-color: blanchedalmond;
+    background-color: #424242;
 }
 
 #dummy {
-    color: blanchedalmond;
+    color: black;
 }
 
 h1 {
@@ -16,7 +16,7 @@ h1 {
 }
 
 .editor {
-    background-color: beige;
+    background-color: #424242;
     min-height: 500px;
     width: 50%;
     margin: auto;
@@ -34,6 +34,7 @@ h1 {
 #code {
     font-size: 14px;
     font-family: Monospaced, monospace;
+    color: white;
     resize: none;
     width: 100%;
     min-height: 500px;
@@ -53,6 +54,10 @@ h1 {
 .highlight {
     font-weight: bold;
     color: red;
+}
+
+textarea {
+    background-color: #2e2e2e;
 }
 
 textarea,
