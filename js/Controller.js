@@ -1,4 +1,5 @@
 import {Dictionary} from "./Dictionary.js";
+import {getCoords as getCaretCoordinates} from "./CaretCoordinates.js";
 
 export class Controller {
 
@@ -12,13 +13,46 @@ export class Controller {
 
         let self = this;
 
+        $("#code").keydown(function(e) {
+            if(e.keyCode === 9) {
+
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                var $this = $(this);
+                var value = $this.val();
+
+
+                $this.val(value.substring(0, start)
+                    + "\t"
+                    + value.substring(end));
+
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                e.preventDefault();
+            }
+        });
+
         $("#code").on("input", function () {
-            console.log($(this)[0]);
-            self.giveSuggestions($(this)[0].value);
+            self.giveSuggestions(dict, $(this)[0].value);
         });
     }
 
-    giveSuggestions(input) {
+    readCaret() {
+
+        $("#code").keydown(function (e) {
+            if (e.keyCode === 38) {  // UP ARROW
+                console.log($(".suggestions")[0]);
+            } else if (e.keyCode === 40) {  // DOWN ARROW
+                console.log("dupa");
+            } else if (e.keyCode === 13 && $(".suggestions")[0] !== undefined) {  // ENTER
+                e.preventDefault();
+                console.log("123");
+            }
+        })
+    }
+
+    giveSuggestions(dict, input) {
 
         let startsWith = [];
         let includes = [];
@@ -37,30 +71,56 @@ export class Controller {
         let suggestions = startsWith.concat(includes);
 
         if (suggestions.length > 0) {
-            this.createSuggestionsDiv(suggestions);
-            console.log(suggestions);
+            console.log(suggestions.length);
+            this.createSuggestionsDiv(input, suggestions);
         } else {
             this.closeOtherLists();
         }
     }
 
-    createSuggestionsDiv(suggestions) {
+    createSuggestionsDiv(input, suggestions) {
 
-        let div = document.createElement("div");
-        div.setAttribute("class", "suggestions");
-        let offset = this.calculateOffset();
-        div.setAttribute("style", "top: " + offset[0] + "px; left: " + offset[1] + "px;");
-        div.innerText = suggestions;
+        input = $.trim(input);
+
         this.closeOtherLists();
+        let div = document.createElement("div");
+        let offset = this.calculateOffset();
+
+        div.setAttribute("class", "suggestions");
+        div.setAttribute("style", "top: " + offset[0] + "px; left: " + offset[1] + "px;");
         $(".autocomplete").append(div);
+
+        let self = this;
+        for (let word of suggestions) {
+            let startIndex = word.search(input);
+            let innerDiv = document.createElement("div");
+            innerDiv.setAttribute("class", "suggestion");
+            innerDiv.setAttribute("id", word);
+            innerDiv.innerHTML = word.substr(0, startIndex);
+            innerDiv.innerHTML += "<span class='highlight'>" + word.substr(startIndex, input.length) + "</span>";
+            innerDiv.innerHTML += word.substr(startIndex + input.length);
+            innerDiv.innerHTML += "<input type='hidden' value='" + input + "'>";
+
+            // innerDiv.addEventListener("change", function() {
+            //     console.log(this);
+            //     // input = this.getElementsByTagName("input")[0].value;
+            //     self.closeOtherLists();
+            // });
+            $(".suggestions").append(innerDiv);
+        }
     }
 
     calculateOffset() {
-        return [100, 100];
+
+        let coords = getCaretCoordinates();
+        let top = coords.top + $("#code").offset().top;
+        let left = coords.left;// + $("#code").offset().left;
+
+        return [top, left];
     }
 
     closeOtherLists() {
-        $(".suggestions").hide();
+        $(".suggestions").remove();
     }
 
     filterString(string) {
