@@ -5,20 +5,20 @@ export class Controller {
     constructor() {
         this.dictionary = new Dictionary();
         this.keywords = this.dictionary.loadKeywords();
+
     }
 
-    readText(dict) {
+    readText() {
 
         let self = this;
-        this.dictionary.clearCustomKeywords();
 
         $("#code").on("input", function () {
             console.log($(this)[0]);
-            self.giveSuggestions(dict, $(this)[0].value);
+            self.giveSuggestions($(this)[0].value);
         });
     }
 
-    giveSuggestions(dict, input) {
+    giveSuggestions(input) {
 
         let startsWith = [];
         let includes = [];

@@ -13,7 +13,7 @@ export class Dictionary {
     }
 
     loadFunctionalKeywords() {
-        let functionalKeywords = [];
+        var functionalKeywords = [];
 
         $.get("assets/functionalKeywords.txt", function (data) {
             let lines = data.split('\n');
@@ -23,15 +23,4 @@ export class Dictionary {
         });
         return functionalKeywords;
     }
-
-    checkForFunctionalKeyword(input) {
-        let functionalKeywords = this.loadFunctionalKeywords();
-
-        return functionalKeywords.includes(input);
-    }
-
-    addNewKeyword(input) {
-
-    }
-
 }
