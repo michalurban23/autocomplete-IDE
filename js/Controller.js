@@ -6,9 +6,10 @@ export class Controller {
     constructor() {
         this.dictionary = new Dictionary();
         this.keywords = this.dictionary.loadKeywords();
+
     }
 
-    readText(dict) {
+    readText() {
 
         let self = this;
 
@@ -33,7 +34,7 @@ export class Controller {
         });
 
         $("#code").on("input", function () {
-            self.giveSuggestions(dict, $(this)[0].value);
+            self.giveSuggestions($(this)[0].value);
         });
     }
 
@@ -51,12 +52,12 @@ export class Controller {
         })
     }
 
-    giveSuggestions(dict, input) {
+    giveSuggestions(input) {
 
         let startsWith = [];
         let includes = [];
 
-        let inputArray = input.replace(/\n/g, " ").split(" ");
+        let inputArray = this.filterString(input);
         let lastInput = inputArray[inputArray.length - 1];
 
         for (let keyword of this.keywords) {
@@ -120,5 +121,20 @@ export class Controller {
 
     closeOtherLists() {
         $(".suggestions").remove();
+    }
+
+    filterString(string) {
+        string = string.replace(/\n/g, " ");
+        string = string.replace('[', " ").replace(']', " ");
+        string = string.replace('(', " ").replace(')', " ");
+        string = string.replace('{', " ").replace('}', " ");
+        string = string.replace('.', " ").replace(',', " ").replace(':', " ").replace('+', " ");
+        string = string.replace('-', " ").replace('*', " ").replace('/', " ").replace('%', " ");
+        string = string.replace('$', " ").replace('#', " ").replace('!', " ").replace('?', " ");
+        string = string.replace('^', " ").replace('\"', " ").replace('\'', " ").replace('&', " ");
+        string = string.replace('@', " ").replace('=', " ").replace('_', " ").replace(';', " ");
+        string = string.replace('>', " ").replace('<', " ");
+
+        return string.split(" ");
     }
 }
