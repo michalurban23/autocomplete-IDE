@@ -34,7 +34,7 @@ export class Controller {
         });
 
         $("#code").on("input", function () {
-            self.giveSuggestions(dict, $(this)[0].value);
+            self.giveSuggestions($(this)[0].value);
         });
     }
 
@@ -52,7 +52,7 @@ export class Controller {
         })
     }
 
-    giveSuggestions(dict, input) {
+    giveSuggestions(input) {
 
         let startsWith = [];
         let includes = [];
